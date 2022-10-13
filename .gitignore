@@ -25,3 +25,8 @@ replay_pid*
 
 /*/*/.idea/
 /*/*/*.iml
+/*/.idea/
+/*/*.iml
+/*/*/out/
+/*/out/
+/*/*/src/resources/
