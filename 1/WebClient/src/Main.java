@@ -6,8 +6,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-                .filter(l -> l.contains("og:title"))
-                .findAny()
-                .ifPresent(s -> System.out.println(s.split("content=\"")[1].split("\"")[0]));
+        new BufferedReader(new InputStreamReader((new URL("https://www.southampton.ac.uk/people/" + (new Scanner(System.in)).nextLine())).openStream())).lines().filter(l -> l.contains("og:title")).findAny().filter(l -> !l.contains("Find a person")).map(s -> s.split("content=\"")[1].split("\"")[0]).ifPresent(System.out::println);
     }
 }
