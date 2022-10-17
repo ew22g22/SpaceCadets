@@ -30,3 +30,4 @@ replay_pid*
 /*/*/out/
 /*/out/
 /*/*/src/resources/
+/*/build/
