@@ -12,6 +12,10 @@ using NetSocketType = SOCKET;
 #ifdef UNIX
 // Definitions required on UNIX systems (POSIX)
 #include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <sys/types.h>
 using NetSocketType = int;
 #endif
 
@@ -21,7 +25,10 @@ class NetTCPSocket
   NetSocketType m_socket; // Raw socket
 
 public:
-  NetTCPSocket();
+  static void StartupSockets();
+  static void ShutdownSockets();
+
+  NetTCPSocket(std::string_view addr, int port);
   ~NetTCPSocket();
 
   bool IsOpen() const;
