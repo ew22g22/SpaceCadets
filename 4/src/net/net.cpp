@@ -55,7 +55,11 @@ int NetServer::StartServer()
   if (!socket.IsOpen())
     return NetBase::SetErrorCode(result, NET_ERROR_INVALID_SOCKET);
 
+  if (!socket.IsBound())
+    return NetBase::SetErrorCode(result, NET_ERROR_INVALID_BIND);
   
+  if (!socket.IsListening())
+    return NetBase::SetErrorCode(result, NET_ERROR_INVALID_LISTEN);
 }
 
 std::shared_ptr<NetServerEvents> NetServer::GetEvents() const
