@@ -1,7 +1,7 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include "../net/net.hpp
+#include "../net/net.hpp"
 
 class Server
 {
@@ -10,6 +10,8 @@ class Server
 public:
   Server();
   ~Server();
+
+  std::shared_ptr<NetServerEvents> GetEvents() const;
 };
 
 #endif

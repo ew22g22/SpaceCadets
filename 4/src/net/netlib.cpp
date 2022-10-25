@@ -1,6 +1,6 @@
 #include "netlib.hpp"
 
-static void NetTCPSocket::StartupSockets()
+void NetTCPSocket::StartupSockets()
 {
 #ifdef WIN32
   WSADATA data{};
@@ -9,7 +9,7 @@ static void NetTCPSocket::StartupSockets()
 #endif
 }
 
-static void NetTCPSocket::ShutdownSockets()
+void NetTCPSocket::ShutdownSockets()
 {
 #ifdef WIN32
   WSACleanup();

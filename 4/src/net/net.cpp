@@ -1,17 +1,20 @@
 #include "net.hpp"
 #include "netlib.hpp"
+#include "action.hpp"
 
 // Explicitly instantiate required template arguments
 // needed for NetServer and NetClient
 template class NetBase<NetServerEvents>;
 template class NetBase<NetClientEvents>;
 
-int NetBase::SetErrorCode(int current, int code)
+template<typename EventsType>
+int NetBase<EventsType>::SetErrorCode(int current, int code)
 {
   return (current | code);
 }
 
-int NetBase::UnsetErrorCode(int current, int code)
+template<typename EventsType>
+int NetBase<EventsType>::UnsetErrorCode(int current, int code)
 {
   return (current & ~code);
 }
@@ -49,7 +52,7 @@ NetServer::~NetServer() = default;
 int NetServer::StartServer()
 {
   auto result = 0;
-  auto socket = NetTCPSocket{};
+  auto socket = NetTCPSocket{this->m_addr, this->m_port};
 
   if (!socket.IsOpen())
     return NetBase::SetErrorCode(result, NET_ERROR_INVALID_SOCKET);
@@ -77,11 +80,9 @@ void NetServer::EnterLoop()
       switch (action)
       {
       case NetAction::SERVER_STOP:
-        goto finish;
       break;
       }
     }
-finish:
   }}.detach();
 }
 

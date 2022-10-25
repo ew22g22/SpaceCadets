@@ -3,6 +3,10 @@
 
 #ifdef WIN32
 // Definitions required on Windows systems (MSVC?)
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+
 #include <windows.h>
 #include <ws2tcpip.h>
 #include <winsock.h>
@@ -20,6 +24,8 @@ using NetSocketType = SOCKET;
 using NetSocketType = int;
 #define socketclose close
 #endif
+
+#include <string_view>
 
 /* Cross-platform wrapper around socket apis */
 class NetTCPSocket

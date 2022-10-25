@@ -13,7 +13,7 @@ enum NetErrorCode
   NET_ERROR_INVALID_SOCKET = 1 << 0,
   NET_ERROR_INVALID_BIND = 1 << 1,
   NET_ERROR_INVALID_LISTEN = 1 << 2
-}
+};
 
 /* Base class for network entities that have addresses and ports */
 template<typename EventsType> // Type for events handling
