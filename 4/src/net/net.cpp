@@ -62,6 +62,8 @@ int NetServer::StartServer()
   
   if (!socket.IsListening())
     return NetBase::SetErrorCode(result, NET_ERROR_INVALID_LISTEN);
+
+  return NET_ERROR_OK;
 }
 
 std::shared_ptr<NetServerEvents> NetServer::GetEvents() const
@@ -80,9 +82,14 @@ void NetServer::EnterLoop()
       switch (action)
       {
       case NetAction::SERVER_STOP:
+        goto finish;
+      break;
+      case NetAction::NONE:
+        // TODO: Run typical server select
       break;
       }
     }
+finish:;
   }}.detach();
 }
 
