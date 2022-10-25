@@ -10,8 +10,8 @@ int main(int argc, char **argv)
 
   NetTCPSocket::StartupSockets();
   server.StartServer();
+  server.EnterLoop();
 
-  server.StopServer();
   NetTCPSocket::ShutdownSockets();
 
   return 0;

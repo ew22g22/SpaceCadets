@@ -41,8 +41,7 @@ int NetBase<EventsType>::GetPort() const
 NetServer::NetServer(int port)
     : NetBase("0.0.0.0", port)
 {
-  // Initialize the events structure
-  this->m_events = std::make_shared<NetServerEvents>();
+
 }
 
 NetServer::~NetServer() = default;
@@ -67,9 +66,23 @@ std::shared_ptr<NetServerEvents> NetServer::GetEvents() const
   return this->m_events;
 }
 
-void NetServer::StopServer()
+void NetServer::EnterLoop()
 {
+  std::thread{[]()
+  {
+    while (true)
+    {
+      auto action = NetActionQueue::PeekActionQueue();
 
+      switch (action)
+      {
+      case NetAction::SERVER_STOP:
+        goto finish;
+      break;
+      }
+    }
+finish:
+  }}.detach();
 }
 
 NetClient::NetClient(std::string_view addr, int port)

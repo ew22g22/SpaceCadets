@@ -4,6 +4,7 @@
 #include <string_view>
 #include <functional>
 #include <memory>
+#include <thread>
 
 /* Enum for representing errors in an integer bitflag */
 enum NetErrorCode
@@ -42,9 +43,7 @@ using NetEvent = std::function<void(Types...)>;
 struct NetServerEvents
 {
   NetEvent<std::string_view, int> m_startup;    // Called on server startup
-  NetEvent<void> m_connect;                     // Called on server connect
-  NetEvent<void> m_bind;                        // Called on server bind
-  NetEvent<void> m_accept;                      // Called on server accept
+  NetEvent<void> m_accept_client;               // Called when server accepts a client
 };
 
 /* Network entitiy specialization for server */
@@ -54,9 +53,9 @@ public:
   NetServer(int port);
   ~NetServer();
 
-  int StartServer();                                    // Starts the server loop (opens a socket)
+  int StartServer();                                    // Starts the server (opens a socket)
   std::shared_ptr<NetServerEvents> GetEvents() const;   // Returns bound events for this entity
-  void StopServer();                                    // Stops the server loop (closes the socket)
+  void EnterLoop();                                     // Enters the server loop
 };
 
 struct NetClientEvents
