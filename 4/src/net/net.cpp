@@ -71,6 +71,11 @@ std::shared_ptr<NetServerEvents> NetServer::GetEvents() const
   return this->m_events;
 }
 
+void NetServer::HandleSelect()
+{
+  
+}
+
 void NetServer::EnterLoop()
 {
   std::thread{[]()

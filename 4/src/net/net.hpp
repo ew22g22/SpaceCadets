@@ -49,6 +49,8 @@ struct NetServerEvents
 /* Network entitiy specialization for server */
 class NetServer : public NetBase<NetServerEvents>
 {
+  void HandleSelect();
+
 public:
   NetServer(int port);
   ~NetServer();
